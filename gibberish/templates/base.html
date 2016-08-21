@@ -1,0 +1,85 @@
+{% load staticfiles i18n compress %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}Gibberish{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A chat server implementation with django channels.">
+        <meta name="author" content="tooreht">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        {% block css %}
+        <!-- Your stuff: Third-party CSS libraries go here -->
+        {% compress css %}
+        <!-- This file stores project-specific CSS -->
+        <link href="{% static 'css/screen.css' %}" rel="stylesheet">
+        {% endcompress %}
+        {% endblock css %}
+        <!--
+
+             CAREFULLY CRAFTED CODE & ARTFUL DESIGN BY
+
+            _____                        ______ _____
+            __  /___________________________  /___  /_
+            _  __/  __ \  __ \_  ___/  _ \_  __ \  __/
+            / /_ / /_/ / /_/ /  /   /  __/  / / / /_
+            \__/ \____/\____//_/    \___//_/ /_/\__/
+
+
+                    https://www.tooreht.net/
+
+        -->
+    </head>
+
+    <body>
+        <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock content %}
+
+        </div> <!-- /container -->
+
+    {% block modal %}{% endblock modal %}
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {% block javascript %}
+        <!-- Your stuff: Third-party javascript libraries go here -->
+
+<!--        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.5/mithril.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script> -->
+
+
+
+        <!-- place project specific Javascript in this file -->
+        {% compress js %}
+        <script type="text/javascript" src="{% static 'js/jspm_packages/system.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/config.js' %}"></script>
+        <!-- <script type="text/javascript" src="{% static 'js/build.js' %}"></script> -->
+        <script type="text/javascript">System.import("{% static 'js/app/main.js' %}").catch(console.error.bind(console));</script>
+
+
+
+        <!-- data-main attribute tells require.js to load
+             scripts/main.js after require.js loads. -->
+        <!-- <script data-main="{% static 'js/app' %}" src="{% static 'js/lib/require.min.js' %}"></script> -->
+
+<!--        <script src="{% static 'js/utils.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script> -->
+        {% endcompress %}
+
+    {% endblock javascript %}
+    </body>
+</html>
